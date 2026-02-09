@@ -25,7 +25,7 @@ You can use it to:
 
 ## Serialization
 
-The `foundation/serialization` package provides transport-agnostic serialization via the `Serializable` interface:
+The `foundation` package provides transport-agnostic serialization via the `Serializable` interface:
 
 ```go
 // Serializable defines a transport-agnostic interface for serialization.
