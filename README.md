@@ -91,27 +91,28 @@ make release VERSION=0.1.0
 - [git-chglog](https://github.com/git-chglog/git-chglog) must be installed for changelog generation.
 
 ### Release Workflow
-1. **Determine the next version automatically:**
-   ```bash
-   ./scripts/next_version.sh
-   ```
-   This script fetches the latest remote tag and suggests the next patch version.
 
-2. **Automate the release process:**
+1. **Automate the release process:**
    ```bash
-   ./scripts/release.sh <version>
+   ./scripts/release.sh           # Real release flow
+   ./scripts/release.sh --dry-run # Preview actions only (no changes made)
    ```
-   This will:
-   - Ensure main is up to date
-   - Create a branch named `release/v<version>` from main
+   This script will:
+   - Ensure you are on the main branch and up to date
+   - Determine the next version automatically
    - Generate and commit the changelog for the new version
-   - Tag the release as `v<version>`
-   - Push the branch and tag to the remote
+   - Create a branch named `release/v<version>` from main
+   - Push the release branch to the remote
+   - Open a PR to main with the changelog as the PR body (requires GitHub CLI)
+
+2. **After PR review and merge:**
+   - Tag the main branch with the new version (e.g., `git tag vX.X.X && git push origin vX.X.X`)
+   - The release workflow will run automatically on the new tag
 
 ### Example
 ```bash
-VERSION=$(./scripts/next_version.sh)
-./scripts/release.sh $VERSION
+./scripts/release.sh        # For a real release
+./scripts/release.sh --dry-run  # To preview the release process
 ```
 
 ### Guidelines
