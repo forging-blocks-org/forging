@@ -84,3 +84,47 @@ make release VERSION=0.1.0
 - Do not commit coverage.out or build artifacts; these are ignored via .gitignore.
 - Use idiomatic Go formatting and linting.
 - For new features or bug fixes, add or update tests as needed.
+
+## 🚀 Release Automation
+
+### Prerequisites
+- [git-chglog](https://github.com/git-chglog/git-chglog) must be installed for changelog generation.
+
+### Release Workflow
+1. **Determine the next version automatically:**
+   ```bash
+   ./scripts/next_version.sh
+   ```
+   This script fetches the latest remote tag and suggests the next patch version.
+
+2. **Automate the release process:**
+   ```bash
+   ./scripts/release.sh <version>
+   ```
+   This will:
+   - Ensure main is up to date
+   - Create a branch named `release/v<version>` from main
+   - Generate and commit the changelog for the new version
+   - Tag the release as `v<version>`
+   - Push the branch and tag to the remote
+
+### Example
+```bash
+VERSION=$(./scripts/next_version.sh)
+./scripts/release.sh $VERSION
+```
+
+### Guidelines
+- Always run tests and check coverage before releasing:
+  ```bash
+  make check-coverage
+  ```
+- The release branch and tag are pushed automatically.
+- Update documentation and changelog as needed before running the release script.
+
+### For Contributors
+- Do not manually edit the changelog for releases; use the automated scripts.
+- Submit PRs from feature branches (e.g., `feature/your-feature`).
+- Releases are managed by maintainers using the scripts above.
+
+---
