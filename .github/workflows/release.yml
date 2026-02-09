@@ -1,13 +1,12 @@
-name: CI
+name: Release
 
 on:
   push:
-    branches: [ main, 'release/v*' ]
-  pull_request:
-    branches: [ main, 'release/v*' ]
+    tags:
+      - 'v*.*.*'
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,3 +18,5 @@ jobs:
         run: go mod tidy
       - name: Run tests
         run: make check-coverage
+      - name: Announce release
+        run: echo "Release ${{ github.ref_name }} is ready."
