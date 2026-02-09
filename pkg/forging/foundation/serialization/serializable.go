@@ -1,4 +1,4 @@
-package foundation
+package serialization
 
 type Serializable interface {
 	ToData() ([]byte, error)
