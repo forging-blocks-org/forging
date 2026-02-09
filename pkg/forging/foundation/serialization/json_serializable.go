@@ -1,4 +1,4 @@
-package foundation
+package serialization
 
 import (
 	"encoding/json"
